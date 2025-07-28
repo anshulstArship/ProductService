@@ -15,12 +15,16 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filteringCriterion(HttpSecurity http) throws Exception {
 
+
             http.authorizeHttpRequests(auth -> auth
                             //.requestMatchers("/error").permitAll()
                             .requestMatchers("/products").hasAuthority("SCOPE_profile")
-                            .anyRequest().authenticated()
+                            //.anyRequest().authenticated()
+                            .anyRequest().permitAll()
                     )
-                    .oauth2ResourceServer((oauth2) -> oauth2.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(new CustomJwtAuthenticationConverter())));
+                    .oauth2ResourceServer((oauth2) -> oauth2.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(new CustomJwtAuthenticationConverter())))
+                    .cors().disable()
+                    .csrf().disable();
             return http.build();
         }
 
