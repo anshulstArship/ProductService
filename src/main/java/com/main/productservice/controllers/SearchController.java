@@ -21,6 +21,6 @@ public class SearchController {
 
     @PostMapping()
     public Page<GenericProductDto> getAllProducts(@RequestBody SearchRequestDto requestDto){
-        return searchService.searchProducts(requestDto.getQuery(), PageRequest.of(requestDto.getPageNo(), requestDto.getSizeOfPage()));
+        return searchService.searchProducts(requestDto.getQuery(), PageRequest.of(requestDto.getPageNo(), requestDto.getSizeOfPage()),requestDto.getSortByParameters());
     }
 }
